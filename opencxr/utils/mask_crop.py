@@ -58,6 +58,8 @@ def crop_to_mask(img_np, spacing, mask_np, margin_in_mm):
 
     # get bounding box for mask
     bbox = find_objects(mask_np)
+    # remove None values from find_objects output
+    bbox = [i for i in bbox if i is not None]
     min_x_mask = max(bbox[0][0].start - margin_in_pixels_x, 0)
     min_y_mask = max(bbox[0][1].start - margin_in_pixels_y, 0)
     max_x_mask = min(bbox[0][0].stop + margin_in_pixels_x, mask_np.shape[0])
